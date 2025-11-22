@@ -1,56 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3D Animation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>DriveSync</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
+  <link rel="manifest" href="/manifest.json">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-  <nav class="glass">
-    <div class="logo">ANTIGRAVITY</div>
-    <div class="links">
-      <a href="#hero">Home</a>
-      <a href="#features">Features</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </nav>
-
-  <main>
-    <section id="hero">
-      <div class="hero-content glass">
-        <h1>Defy Reality</h1>
-        <p>Experience the next generation of web immersion.</p>
-        <button class="cta-button">Get Started</button>
+  <canvas id="bg-canvas"></canvas>
+  <div id="app">
+    <header class="app-header glass">
+      <h1 id="page-title">Dashboard</h1>
+      <div class="header-actions">
+        <!-- Dynamic actions can go here -->
       </div>
-    </section>
+    </header>
 
-    <section id="features">
-      <div class="feature-card glass">
-        <h3>Immersive</h3>
-        <p>3D environments that react to your presence.</p>
+    <main id="main-content">
+      <!-- Views will be injected here -->
+      <div id="view-dashboard" class="view active">
+        <!-- Dashboard Content -->
       </div>
-      <div class="feature-card glass">
-        <h3>Performant</h3>
-        <p>Optimized for smooth 60fps experiences.</p>
+      <div id="view-fuel" class="view">
+        <!-- Fuel Log Content -->
       </div>
-      <div class="feature-card glass">
-        <h3>Modern</h3>
-        <p>Built with the latest web technologies.</p>
+      <div id="view-maintenance" class="view">
+        <!-- Maintenance Log Content -->
       </div>
-    </section>
-  </main>
+      <div id="view-settings" class="view">
+        <!-- Settings Content -->
+      </div>
+    </main>
 
-  <footer>
-    <p>&copy; 2025 Antigravity. All rights reserved.</p>
-  </footer>
-
+    <nav class="bottom-nav glass">
+      <button class="nav-item active" data-target="view-dashboard">
+        <span class="icon">📊</span>
+        <span class="label">ホーム</span>
+      </button>
+      <button class="nav-item" data-target="view-fuel">
+        <span class="icon">⛽</span>
+        <span class="label">給油</span>
+      </button>
+      <button class="nav-item" data-target="view-maintenance">
+        <span class="icon">🔧</span>
+        <span class="label">整備</span>
+      </button>
+      <button class="nav-item" data-target="view-settings">
+        <span class="icon">⚙️</span>
+        <span class="label">設定</span>
+      </button>
+    </nav>
+  </div>
   <script type="module" src="/main.js"></script>
 </body>
 
