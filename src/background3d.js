@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { Character3D } from './character3d.js';
 
 export class Background3D {
     constructor() {
@@ -7,6 +8,7 @@ export class Background3D {
         this.camera = null;
         this.renderer = null;
         this.objects = [];
+        this.character = null;
         this.mouseX = 0;
         this.mouseY = 0;
 
@@ -25,8 +27,8 @@ export class Background3D {
 
         // Camera
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        this.camera.position.z = 50;
-        this.camera.position.y = 10;
+        this.camera.position.z = 12; // Moved closer for better visibility
+        this.camera.position.y = 5;
 
         // Renderer
         this.renderer = new THREE.WebGLRenderer({
@@ -41,6 +43,11 @@ export class Background3D {
         this.createGrid();
         this.createParticles();
 
+        // Character
+        this.character = new Character3D();
+        this.character.mesh.position.x = 12; // Move to right edge
+        this.scene.add(this.character.mesh);
+
         // Lights
         const ambientLight = new THREE.AmbientLight(0x404040);
         this.scene.add(ambientLight);
@@ -52,6 +59,11 @@ export class Background3D {
         const blueLight = new THREE.PointLight(0x00d2ff, 1, 100);
         blueLight.position.set(-10, -10, 10);
         this.scene.add(blueLight);
+
+        // Gold light for character
+        const goldLight = new THREE.PointLight(0xffd700, 1, 50);
+        goldLight.position.set(0, 5, 5);
+        this.scene.add(goldLight);
     }
 
     createGrid() {
@@ -105,6 +117,15 @@ export class Background3D {
             this.mouseX = (event.clientX - window.innerWidth / 2) * 0.05;
             this.mouseY = (event.clientY - window.innerHeight / 2) * 0.05;
         });
+
+        // Character Controls
+        window.addEventListener('keydown', (e) => {
+            if (this.character) this.character.setInput(e.key, true);
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (this.character) this.character.setInput(e.key, false);
+        });
     }
 
     animate() {
@@ -112,7 +133,7 @@ export class Background3D {
 
         // Camera movement based on mouse
         this.camera.position.x += (this.mouseX - this.camera.position.x) * 0.05;
-        this.camera.position.y += (-this.mouseY + 10 - this.camera.position.y) * 0.05;
+        this.camera.position.y += (-this.mouseY + 5 - this.camera.position.y) * 0.05;
         this.camera.lookAt(0, 0, 0);
 
         // Animation
@@ -125,6 +146,10 @@ export class Background3D {
                 obj.mesh.rotation.y += 0.001;
             }
         });
+
+        if (this.character) {
+            this.character.update();
+        }
 
         this.renderer.render(this.scene, this.camera);
     }
