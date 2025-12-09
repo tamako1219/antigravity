@@ -1,8 +1,11 @@
 import ThreeScene from './components/ThreeScene';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   return (
-    <ThreeScene />
+    <ErrorBoundary>
+      <ThreeScene />
+    </ErrorBoundary>
   );
 }
 
