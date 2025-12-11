@@ -1,0 +1,40 @@
+{
+    "manifest_version": 3,
+    "name": "My AI Brain 3.0",
+    "version": "1.0",
+    "description": "Send content to your personal AI Brain (GAS/Gemini).",
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "styles.css"
+            ]
+        }
+    ],
+    "permissions": [
+        "contextMenus",
+        "activeTab",
+        "scripting",
+        "storage",
+        "notifications"
+    ],
+    "host_permissions": [
+        "https://script.google.com/*"
+    ],
+    "action": {
+        "default_title": "My AI Brain 3.0"
+    }
+}
